@@ -10,8 +10,8 @@ void encoderThread() {
         angle += 1.5;
         if (angle > 360.0) angle = 0.0;
         {
-            std::lock_guard<std::mutex> lock(printMutex);
-            std::cout << "[ENCODER]  angle: " << angle << " deg\n";
+            std::lock_guard<std::mutex> lock(dataMutex);
+            sensorData.angle = angle;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }

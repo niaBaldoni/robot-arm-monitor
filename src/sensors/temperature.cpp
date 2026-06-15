@@ -9,8 +9,8 @@ void temperatureThread() {
     while (true) {
         temp += (rand() % 3 - 1) * 0.1;
         {
-            std::lock_guard<std::mutex> lock(printMutex);
-            std::cout << "[TEMP]     temp:  " << temp << " C\n";
+            std::lock_guard<std::mutex> lock(dataMutex);
+            sensorData.temperature = temp;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }

@@ -10,8 +10,8 @@ void forceThread() {
         force += (rand() % 5 - 2) * 0.2;
         if (force < 0) force = 0;
         {
-            std::lock_guard<std::mutex> lock(printMutex);
-            std::cout << "[FORCE]    force: " << force << " N\n";
+            std::lock_guard<std::mutex> lock(dataMutex);
+            sensorData.force = force;
         }
         std::this_thread::sleep_for(std::chrono::milliseconds(250));
     }

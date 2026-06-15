@@ -1,3 +1,4 @@
 #include "shared.h"
 
-std::mutex printMutex;
+SensorData sensorData;
+std::mutex dataMutex;

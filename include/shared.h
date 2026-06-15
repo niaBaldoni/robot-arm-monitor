@@ -1,4 +1,11 @@
 #pragma once
 #include <mutex>
 
-extern std::mutex printMutex;
+struct SensorData {
+    float angle       = 0.0;
+    float temperature = 0.0;
+    float force       = 0.0;
+};
+
+extern SensorData sensorData;
+extern std::mutex dataMutex;
