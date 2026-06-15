@@ -1,0 +1,7 @@
+{
+    "cmake.sourceDirectory": "/home/niabaldoni/projects/robot-arm-monitor",
+    "workbench.settings.showAISearchToggle": false,
+    "chat.planReview.inlineEditor.enabled": false,
+    "chat.agent.enabled": false,
+    "chat.checkpoints.enabled": false
+}
