@@ -10,6 +10,7 @@ add_executable(robot_arm_monitor
     src/sensors/encoder.cpp
     src/sensors/temperature.cpp
     src/sensors/force.cpp
+    src/shared.cpp
 )
 
 target_include_directories(robot_arm_monitor PRIVATE include)
