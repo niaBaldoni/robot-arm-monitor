@@ -5,6 +5,7 @@
 #include "sensors/force.h"
 #include "sensors/temperature.h"
 #include "shared.h"
+#include "monitor/monitor.h"
 
 void displayThread() {
     while (true) {
@@ -22,11 +23,13 @@ int main() {
     std::thread t2(temperatureThread);
     std::thread t3(forceThread);
     std::thread t4(displayThread);
+    std::thread t5(monitorThread);
 
     t1.join();
     t2.join();
     t3.join();
     t4.join();
+    t5.join();
 
     return 0;
 }
