@@ -14,3 +14,13 @@ add_executable(robot_arm_monitor
 )
 
 target_include_directories(robot_arm_monitor PRIVATE include)
+
+# Tests
+find_package(GTest REQUIRED)
+enable_testing()
+
+add_executable(run_tests tests/test_sensors.cpp)
+target_link_libraries(run_tests GTest::GTest GTest::Main)
+target_include_directories(run_tests PRIVATE include)
+
+add_test(NAME SensorTests COMMAND run_tests)
