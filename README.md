@@ -29,6 +29,9 @@ We have five total threads:
 The shared struct `sensorData` is protected by one mutex, `dataMutex`. When `monitorThread` locks `dataMutex` and reads `angle`, `temperature`, and `force` together, it is guaranteed that none of those values can change mid-read: it gets a fully consistent snapshot of all three at once. This project is focused on catching combinations of dangerous values, so we need them to be consistent at the same instant.
 
 
+## Demo
+![Demo of robot-arm-monitor running, showing status updates and danger alerts](./docs/assets/demo_2.gif)
+
 ## How to build and run
 
 You will need to have `cmake`, `build-essential`, and `libgtest-dev` installed.
