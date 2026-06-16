@@ -9,3 +9,6 @@
 ---
 
 Unit tested with Google Test, CI/CD via GitHub Actions
+
+---
+Photo by [Simon Kadula](https://unsplash.com/photos/a-factory-filled-with-lots-of-orange-machines-8gr6bObQLOI) on [Unsplash](https://unsplash.com).
