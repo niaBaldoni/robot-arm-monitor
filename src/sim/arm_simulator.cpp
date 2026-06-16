@@ -1,4 +1,8 @@
 #include "sim/arm_simulator.h"
+#include <mutex>
+
+static ArmState armState;
+static std::mutex armMutex;
 
 static float targetVelocityForState(ArmTaskState state) {
     switch (state) {
@@ -34,4 +38,13 @@ static ArmTaskState nextState(ArmTaskState current) {
         case ArmTaskState::Retreat: return ArmTaskState::Idle;
         default: return ArmTaskState::Idle;
     }
+}
+
+ArmState getArmStateSnapshot() {
+    ArmState temp;
+    {
+        std::lock_guard<std::mutex> lock(armMutex);
+        temp = armState;
+    }
+    return temp;
 }

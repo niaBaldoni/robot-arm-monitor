@@ -1,5 +1,7 @@
 #pragma once
 
+ArmState getArmStateSnapshot();
+
 enum class ArmTaskState {
     Idle,
     Approach,
