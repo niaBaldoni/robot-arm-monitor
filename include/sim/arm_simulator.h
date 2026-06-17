@@ -1,7 +1,5 @@
 #pragma once
 
-ArmState getArmStateSnapshot();
-
 enum class ArmTaskState {
     Idle,
     Approach,
@@ -15,8 +13,9 @@ struct ArmState {
     ArmTaskState currentState = ArmTaskState::Idle;
     float angle       = 0.0;
     float currentVelocity = 0.0;
-    float targetVelocity = 0.0;
     float temperature = 0.0;
     float force       = 0.0;
     float timeInState = 0.0;
 };
+
+ArmState getArmStateSnapshot();

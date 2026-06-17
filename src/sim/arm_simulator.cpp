@@ -1,8 +1,16 @@
 #include "sim/arm_simulator.h"
 #include <mutex>
+#include <cmath>
+#include <algorithm>
 
 static ArmState armState;
 static std::mutex armMutex;
+static constexpr float kInertia = 2.0f;
+static constexpr float kMaxAcceleration = 30.0f;
+static constexpr float kHeat = 0.5f;
+static constexpr float kCool = 0.1f;
+static constexpr float ambientTemp = 25.0f;
+
 
 static float targetVelocityForState(ArmTaskState state) {
     switch (state) {
@@ -37,6 +45,33 @@ static ArmTaskState nextState(ArmTaskState current) {
         case ArmTaskState::Place: return ArmTaskState::Retreat;
         case ArmTaskState::Retreat: return ArmTaskState::Idle;
         default: return ArmTaskState::Idle;
+    }
+}
+
+static float moveToward(float current, float target, float maxDelta) {
+    float diff = target - current;
+    float clampedDiff = std::clamp(diff, -maxDelta, maxDelta);
+    return current + clampedDiff;
+}
+
+static void tick(ArmState& state, float dt) {
+    float oldVelocity = state.currentVelocity;
+    float maxDelta = kMaxAcceleration * dt;
+    state.currentVelocity = moveToward(oldVelocity, targetVelocityForState(state.currentState), maxDelta);
+
+    float currentAcceleration = (state.currentVelocity - oldVelocity) / dt;
+    state.force = kInertia * std::abs(currentAcceleration);
+
+    state.temperature += (kHeat * state.force - kCool * (state.temperature - ambientTemp)) * dt;
+
+    state.angle += state.currentVelocity * dt;
+    if (state.angle >= 360.0f) state.angle -= 360.0f;
+    if (state.angle < 0.0f) state.angle += 360.0f;
+
+    state.timeInState += dt;
+    if (state.timeInState >= durationForState(state.currentState)) {
+        state.currentState = nextState(state.currentState);
+        state.timeInState = 0.0f;
     }
 }
 
