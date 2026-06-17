@@ -13,7 +13,7 @@ A multithreaded C++ safety monitor for a simulated robot arm, with concurrent se
 
 ## Why it exists 
 
-This project is a small but real multithreaded system: sensor threads write concurrently to shared memory, and a monitor thread reasons about combinations of sensor data in real time to detect dangerous conditions. This is a pattern that shows up often in robotics and safety-critical systems, and since I am currently deepening my embedded knowledge, I decided to build something that gives me hands-on experience with C++ on Linux, concurrency, and embedded-adjacent systems programming.
+This project is a small but real multithreaded system: sensor threads write concurrently to shared memory, and a monitor thread reasons about combinations of sensor data in real time to detect dangerous conditions. This is a pattern that shows up often in robotics and safety-critical systems, and since I'm moving toward embedded and systems-level work, I decided to build something that gives me hands-on experience with C++ on Linux, concurrency, and embedded-adjacent systems programming.
 
 
 ## Architecture
