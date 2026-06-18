@@ -18,4 +18,6 @@ struct ArmState {
     float timeInState = 0.0;
 };
 
+void armSimulatorThread();
+
 ArmState getArmStateSnapshot();

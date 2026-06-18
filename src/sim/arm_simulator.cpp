@@ -2,6 +2,7 @@
 #include <mutex>
 #include <cmath>
 #include <algorithm>
+#include <thread>
 
 static ArmState armState;
 static std::mutex armMutex;
@@ -10,7 +11,7 @@ static constexpr float kMaxAcceleration = 30.0f;
 static constexpr float kHeat = 0.5f;
 static constexpr float kCool = 0.1f;
 static constexpr float ambientTemp = 25.0f;
-
+static constexpr int kTickMs = 10;
 
 static float targetVelocityForState(ArmTaskState state) {
     switch (state) {
@@ -72,6 +73,18 @@ static void tick(ArmState& state, float dt) {
     if (state.timeInState >= durationForState(state.currentState)) {
         state.currentState = nextState(state.currentState);
         state.timeInState = 0.0f;
+    }
+}
+
+void armSimulatorThread() {
+    float dt = float(kTickMs) / 1000;
+
+    while(true) {
+        {
+            std::lock_guard<std::mutex> lock(armMutex);
+            tick(armState, dt);
+        }
+        std::this_thread::sleep_for(std::chrono::milliseconds(kTickMs));
     }
 }
 
