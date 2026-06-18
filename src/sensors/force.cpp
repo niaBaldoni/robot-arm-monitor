@@ -3,16 +3,17 @@
 #include <chrono>
 #include "sensors/force.h"
 #include "shared.h"
+#include "sim/arm_simulator.h"
+#include <cstdlib> 
 
 void forceThread() {
-    float force = 3.0;
     while (true) {
-        force += (rand() % 5 - 2) * 0.2;
-        if (force < 0) force = 0;
+        int randMs = rand()%(110-95 + 1) + 95;
+        ArmState snapshot = getArmStateSnapshot();
         {
             std::lock_guard<std::mutex> lock(dataMutex);
-            sensorData.force = force;
+            sensorData.force = snapshot.force;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(250));
+        std::this_thread::sleep_for(std::chrono::milliseconds(randMs));
     }
 }
