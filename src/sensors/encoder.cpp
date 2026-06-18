@@ -1,10 +1,9 @@
-#include <iostream>
 #include <thread>
 #include <chrono>
-#include "sensors/encoder.h"
+#include <cstdlib>
 #include "shared.h"
 #include "sim/arm_simulator.h"
-#include <cstdlib> 
+#include "sensors/encoder.h"
 
 void encoderThread() {
     while (true) {

@@ -1,10 +1,9 @@
-#include <iostream>
 #include <thread>
 #include <chrono>
-#include "sensors/force.h"
+#include <cstdlib>
 #include "shared.h"
 #include "sim/arm_simulator.h"
-#include <cstdlib> 
+#include "sensors/force.h"
 
 void forceThread() {
     while (true) {

@@ -1,10 +1,9 @@
-#include <iostream>
 #include <thread>
 #include <chrono>
-#include "sensors/temperature.h"
+#include <cstdlib>
 #include "shared.h"
 #include "sim/arm_simulator.h"
-#include <cstdlib> 
+#include "sensors/temperature.h"
 
 void temperatureThread() {
     while (true) {
