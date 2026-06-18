@@ -32,7 +32,7 @@ static float durationForState(ArmTaskState state) {
         case ArmTaskState::Grasp: return 1.0f;
         case ArmTaskState::Transport: return 4.0f;
         case ArmTaskState::Place: return 1.0f;
-        case ArmTaskState::Retreat: return 5.0f;
+        case ArmTaskState::Retreat: return 5.009f;
         default: return 0.0f;
     }
 }
