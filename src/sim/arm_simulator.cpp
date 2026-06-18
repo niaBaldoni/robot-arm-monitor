@@ -8,7 +8,7 @@ static ArmState armState;
 static std::mutex armMutex;
 static constexpr float kInertia = 2.0f;
 static constexpr float kMaxAcceleration = 30.0f;
-static constexpr float kHeat = 0.5f;
+static constexpr float kHeat = 0.025f;
 static constexpr float kCool = 0.1f;
 static constexpr float ambientTemp = 25.0f;
 static constexpr int kTickMs = 10;
@@ -32,7 +32,7 @@ static float durationForState(ArmTaskState state) {
         case ArmTaskState::Grasp: return 1.0f;
         case ArmTaskState::Transport: return 4.0f;
         case ArmTaskState::Place: return 1.0f;
-        case ArmTaskState::Retreat: return 3.0f;
+        case ArmTaskState::Retreat: return 5.0f;
         default: return 0.0f;
     }
 }
