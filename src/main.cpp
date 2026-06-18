@@ -1,11 +1,12 @@
 #include <iostream>
 #include <thread>
 #include <chrono>
+#include "shared.h"
+#include "monitor/monitor.h"
 #include "sensors/encoder.h"
 #include "sensors/force.h"
 #include "sensors/temperature.h"
-#include "shared.h"
-#include "monitor/monitor.h"
+#include "sim/arm_simulator.h"
 
 void displayThread() {
     while (true) {
@@ -19,12 +20,14 @@ void displayThread() {
 }
 
 int main() {
+    std::thread t0(armSimulatorThread);
     std::thread t1(encoderThread);
     std::thread t2(temperatureThread);
     std::thread t3(forceThread);
     std::thread t4(displayThread);
     std::thread t5(monitorThread);
 
+    t0.join();
     t1.join();
     t2.join();
     t3.join();
