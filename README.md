@@ -1,4 +1,4 @@
-![robot-arm-monitor title banner](./docs/assets/robot-arm-monitor_1.png)
+![robot-arm-monitor title banner](./docs/assets/robot-arm-monitor_banner.png)
 
 <div align="center">
 
