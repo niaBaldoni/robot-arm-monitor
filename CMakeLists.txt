@@ -11,6 +11,7 @@ add_executable(robot_arm_monitor
     src/sensors/encoder.cpp
     src/sensors/temperature.cpp
     src/sensors/force.cpp
+    src/sim/arm_simulator.cpp
     src/shared.cpp
 )
 

@@ -1,17 +1,18 @@
-#include <iostream>
 #include <thread>
 #include <chrono>
-#include "sensors/temperature.h"
+#include <cstdlib>
 #include "shared.h"
+#include "sim/arm_simulator.h"
+#include "sensors/temperature.h"
 
 void temperatureThread() {
-    float temp = 40.0;
     while (true) {
-        temp += (rand() % 3 - 1) * 0.1;
+        int randMs = rand()%(110-95 + 1) + 95;
+        ArmState snapshot = getArmStateSnapshot();
         {
             std::lock_guard<std::mutex> lock(dataMutex);
-            sensorData.temperature = temp;
+            sensorData.temperature = snapshot.temperature;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
+        std::this_thread::sleep_for(std::chrono::milliseconds(randMs));
     }
 }
