@@ -6,7 +6,8 @@ enum class ArmTaskState {
     Grasp,
     Transport,
     Place,
-    Retreat
+    Retreat,
+    Obstructed
 };
 
 struct ArmState {
