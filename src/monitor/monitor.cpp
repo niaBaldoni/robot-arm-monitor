@@ -4,8 +4,8 @@
 #include "monitor/monitor.h"
 #include "shared.h"
 
-const float MAX_FORCE       = 7.0;
-const float MAX_TEMPERATURE = 40.6;
+const float MAX_FORCE       = 70;
+const float MAX_TEMPERATURE = 60;
 const float MAX_VELOCITY     = 30.0; // degrees per second
 
 void monitorThread() {
