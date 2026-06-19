@@ -33,11 +33,11 @@ The shared struct `sensorData` is protected by one mutex, `dataMutex`. When `mon
 
 ## Demo
 
-The console during normal operations:
+The arm and the console during normal operations:
 
-![Demo of robot-arm-monitor running normally](./docs/assets/demo_2.gif)
+![Demo of robot-arm-monitor running normally](./docs/assets/demo_no_obstruction_v0.2.gif)
 
-The console and warning systems if the arm enters the "Obstructed" state:
+The arm and the console if the arm enters the "Obstructed" state:
 
 ![Demo of robot-arm-monitor running and encountering the Obstructed state](./docs/assets/demo_obstruction_v0.2.gif)
 
