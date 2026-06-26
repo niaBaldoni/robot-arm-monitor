@@ -2,6 +2,7 @@
 #include <mutex>
 #include <cmath>
 #include <algorithm>
+#include <stdexcept>
 #include <thread>
 #include <cstdlib>
 
@@ -60,7 +61,16 @@ static float moveToward(float current, float target, float maxDelta) {
     return current + clampedDiff;
 }
 
+static void validateState(ArmTaskState state) {
+    if (state >= ArmTaskState::MAX_STATE) {
+        throw std::invalid_argument("Unknown ArmTaskState");
+    }
+}
+
 static void tick(ArmState& state, float dt) {
+
+    validateState(state.currentState);
+
     float oldVelocity = state.currentVelocity;
     float maxDelta = kMaxAcceleration * dt;
     state.currentVelocity = moveToward(oldVelocity, targetVelocityForState(state.currentState), maxDelta);
