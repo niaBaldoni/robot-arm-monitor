@@ -7,7 +7,9 @@ enum class ArmTaskState {
     Transport,
     Place,
     Retreat,
-    Obstructed
+    Obstructed,
+
+    MAX_STATE
 };
 
 struct ArmState {

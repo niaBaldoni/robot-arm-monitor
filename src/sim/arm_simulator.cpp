@@ -2,6 +2,7 @@
 #include <mutex>
 #include <cmath>
 #include <algorithm>
+#include <stdexcept>
 #include <thread>
 #include <cstdlib>
 
@@ -24,7 +25,7 @@ static float targetVelocityForState(ArmTaskState state) {
         case ArmTaskState::Place: return 0.0f;
         case ArmTaskState::Retreat: return -20.0f;
         case ArmTaskState::Obstructed: return 0.0f;
-        default: return 0.0f;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
@@ -37,7 +38,7 @@ static float durationForState(ArmTaskState state) {
         case ArmTaskState::Place: return 1.0f;
         case ArmTaskState::Retreat: return 5.009f;
         case ArmTaskState::Obstructed: return 999.9f;
-        default: return 0.0f;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
@@ -50,7 +51,7 @@ static ArmTaskState nextState(ArmTaskState current) {
         case ArmTaskState::Place: return ArmTaskState::Retreat;
         case ArmTaskState::Retreat: return ArmTaskState::Idle;
         case ArmTaskState::Obstructed: return ArmTaskState::Place;
-        default: return ArmTaskState::Idle;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
@@ -60,7 +61,16 @@ static float moveToward(float current, float target, float maxDelta) {
     return current + clampedDiff;
 }
 
+static void validateState(ArmTaskState state) {
+    if (state >= ArmTaskState::MAX_STATE) {
+        throw std::invalid_argument("Unknown ArmTaskState");
+    }
+}
+
 static void tick(ArmState& state, float dt) {
+
+    validateState(state.currentState);
+
     float oldVelocity = state.currentVelocity;
     float maxDelta = kMaxAcceleration * dt;
     state.currentVelocity = moveToward(oldVelocity, targetVelocityForState(state.currentState), maxDelta);

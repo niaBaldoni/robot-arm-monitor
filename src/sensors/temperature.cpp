@@ -1,13 +1,12 @@
 #include <thread>
 #include <chrono>
-#include <cstdlib>
 #include "shared.h"
 #include "sim/arm_simulator.h"
 #include "sensors/temperature.h"
 
 void temperatureThread() {
     while (true) {
-        int randMs = rand()%(110-95 + 1) + 95;
+        int randMs = getRandMs();
         ArmState snapshot = getArmStateSnapshot();
         {
             std::lock_guard<std::mutex> lock(dataMutex);
