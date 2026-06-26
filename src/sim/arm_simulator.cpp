@@ -25,7 +25,7 @@ static float targetVelocityForState(ArmTaskState state) {
         case ArmTaskState::Place: return 0.0f;
         case ArmTaskState::Retreat: return -20.0f;
         case ArmTaskState::Obstructed: return 0.0f;
-        default: return 0.0f;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
@@ -38,7 +38,7 @@ static float durationForState(ArmTaskState state) {
         case ArmTaskState::Place: return 1.0f;
         case ArmTaskState::Retreat: return 5.009f;
         case ArmTaskState::Obstructed: return 999.9f;
-        default: return 0.0f;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
@@ -51,7 +51,7 @@ static ArmTaskState nextState(ArmTaskState current) {
         case ArmTaskState::Place: return ArmTaskState::Retreat;
         case ArmTaskState::Retreat: return ArmTaskState::Idle;
         case ArmTaskState::Obstructed: return ArmTaskState::Place;
-        default: return ArmTaskState::Idle;
+        default: throw std::invalid_argument("Unknown ArmTaskState");
     }
 }
 
