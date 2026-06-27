@@ -1,4 +1,5 @@
 #include <iostream>
+#include <format>
 #include <thread>
 #include <chrono>
 #include "shared.h"
@@ -12,27 +13,18 @@ void displayThread() {
     while (true) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         std::lock_guard<std::mutex> lock(dataMutex);
-        std::cout << "[STATUS] angle: " << sensorData.angle
-                  << " deg | temp: " << sensorData.temperature
-                  << " C | force: " << sensorData.force
-                  << " N\n";
+        std::cout << std::format("[STATUS] angle: {:.1f} deg | temp: {:.1f} C | force: {:.1f} N\n", 
+            sensorData.angle, sensorData.temperature, sensorData.force);
     }
 }
 
 int main() {
-    std::thread t0(armSimulatorThread);
-    std::thread t1(encoderThread);
-    std::thread t2(temperatureThread);
-    std::thread t3(forceThread);
-    std::thread t4(displayThread);
-    std::thread t5(monitorThread);
-
-    t0.join();
-    t1.join();
-    t2.join();
-    t3.join();
-    t4.join();
-    t5.join();
+    std::jthread t0(armSimulatorThread);
+    std::jthread t1(encoderThread);
+    std::jthread t2(temperatureThread);
+    std::jthread t3(forceThread);
+    std::jthread t4(displayThread);
+    std::jthread t5(monitorThread);
 
     return 0;
 }
