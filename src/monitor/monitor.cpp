@@ -1,4 +1,5 @@
 #include <iostream>
+#include <format>
 #include <thread>
 #include <chrono>
 #include "monitor/monitor.h"
@@ -31,7 +32,7 @@ void monitorThread() {
         
         if (sensorData.force > MAX_FORCE) {
             if (!forceAlerted) {
-                std::cout << "[DANGER] Force exceeded: " << sensorData.force << " N\n";
+                std::cout << std::format("[DANGER] Force exceeded: {:.1f} N\n", sensorData.force);
                 forceAlerted = true;
             }
         } else {
@@ -40,7 +41,7 @@ void monitorThread() {
         
         if (sensorData.temperature > MAX_TEMPERATURE) {
             if (!tempAlerted) {
-                std::cout << "[DANGER] Temperature exceeded: " << sensorData.temperature << " C\n";
+                std::cout << std::format ("[DANGER] Temperature exceeded: {:.1f} C\n", sensorData.temperature);
                 tempAlerted = true;
             }
         } else {
@@ -49,7 +50,7 @@ void monitorThread() {
 
         if (velocity > MAX_VELOCITY) {
             if (!velocityAlerted) {
-                std::cout << "[DANGER] Velocity exceeded: " << velocity << " deg/s\n";
+                std::cout << std::format ("[DANGER] Velocity exceeded: {:.1f} deg/s\n", velocity);
                 velocityAlerted = true;
             }
         } else {

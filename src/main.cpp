@@ -1,4 +1,5 @@
 #include <iostream>
+#include <format>
 #include <thread>
 #include <chrono>
 #include "shared.h"
@@ -12,10 +13,8 @@ void displayThread() {
     while (true) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
         std::lock_guard<std::mutex> lock(dataMutex);
-        std::cout << "[STATUS] angle: " << sensorData.angle
-                  << " deg | temp: " << sensorData.temperature
-                  << " C | force: " << sensorData.force
-                  << " N\n";
+        std::cout << std::format("[STATUS] angle: {:.1f} deg | temp: {:.1f} C | force: {:.1f} N\n", 
+            sensorData.angle, sensorData.temperature, sensorData.force);
     }
 }
 
