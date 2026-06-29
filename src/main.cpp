@@ -9,6 +9,8 @@
 #include "sensors/temperature.h"
 #include "sim/arm_simulator.h"
 
+RobotArm arm;
+
 void displayThread() {
     while (true) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
@@ -19,10 +21,10 @@ void displayThread() {
 }
 
 int main() {
-    std::jthread t0(armSimulatorThread);
-    std::jthread t1(encoderThread);
-    std::jthread t2(temperatureThread);
-    std::jthread t3(forceThread);
+    std::jthread t0(&RobotArm::run, &arm);
+    std::jthread t1(encoderThread, std::ref(arm));
+    std::jthread t2(temperatureThread, std::ref(arm));
+    std::jthread t3(forceThread, std::ref(arm));
     std::jthread t4(displayThread);
     std::jthread t5(monitorThread);
 

@@ -1,3 +1,4 @@
 #pragma once
+#include "sim/arm_simulator.h"
 
-void encoderThread();
+void encoderThread(RobotArm& arm);
